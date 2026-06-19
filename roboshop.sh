@@ -48,16 +48,21 @@ do
     --change-batch '
         {
             "Comment": "Update A record to new IP" \
-            "ResourceRecordSet": {
-                "Name": "$ROUTE53_RECORD"
-                "Type": "A",
-                "TTL": 1,
-                "ResourceRecords": [
-                    {
-                        "Value": "$IP"
+            "Changes": [
+                {
+                    "ResourceRecordSet": {
+                        "Name": "$ROUTE53_RECORD"
+                        "Type": "A",
+                        "TTL": 1,
+                        "ResourceRecords": [
+                            {
+                                "Value": "$IP"
+                            }
+                        ]
                     }
-                ]
-            }
+                }
+            ]
+        
         }
     '
 done
