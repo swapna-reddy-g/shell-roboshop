@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # To create instance through CLI:
 # aws ec2 run instances \
