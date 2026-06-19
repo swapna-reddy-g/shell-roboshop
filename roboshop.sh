@@ -1,17 +1,4 @@
-!/bin/bash
-
-# To create instance through CLI:
-# aws ec2 run instances \
-#     --image-id ami-0220d79f3f480ecf5 \
-#     --instance-type t3.micro \
-#     --security-groups roboshop-common \
-#         --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Test}] \
-#         --query "Instance[0].InstanceId' \
-#     --output text
-
-# To get details about instance
-# aws ec2 describe-instances --instance-ids i-0aed2fbad8d2d74af --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
-
+#!/bin/bash
 
 AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z02881716WCB6UDT9VO7"
