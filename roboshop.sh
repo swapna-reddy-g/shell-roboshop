@@ -4,6 +4,13 @@ AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z02881716WCB6UDT9VO7"
 DOMAIN_NAME="swadevops.online"
 
+##### VALIDATION #####
+if [ $# -lt 2 ]; then
+    echo "Atleast 2 Arguments are required"
+    echo "USAGE: $0 [create/delete] [instance1] [instance2] ...."
+    exit 1
+fi
+
 for instance in $@
 do
     echo "Launching Instance: roboshop-$instance"
