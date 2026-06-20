@@ -11,6 +11,14 @@ if [ $# -lt 2 ]; then
     exit 1
 fi
 
+ACTION=$1
+shift
+if [ "$ACTION" != "create"] && [ "$ACTION" != "delete"]; then
+    echo -e "$R ERROR:: First Argument Should Either Be : create or delete $N"
+    echo "USAGE: $0 [create/delete] [instance1] [instance2] ...."
+    exit 1
+fi
+
 for instance in $@
 do
     echo "Launching Instance: roboshop-$instance"
