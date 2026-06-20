@@ -31,11 +31,11 @@ cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 VALIDATE $? "Adding rabbitmq repo:"
 
 dnf install rabbitmq-server -y
-VALIDATE $? "Installing rabbitmq Server:"
+VALIDATE $? "Installing rabbitmq Server"
 
 systemctl enable rabbitmq-server
 systemctl start rabbitmq-server
-VALIDATE $? "Enabling and starting"
+VALIDATE $? "Enabling and starting rabbitmq server"
 
 rabbitmqctl add_user roboshop roboshop123
 rabbitmqctl ser_permissions -p / roboshop ".*" ".*" ".*"
