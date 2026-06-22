@@ -44,21 +44,21 @@ fi
 rm -rf /app
 VALIDATE $? "Removing Existing code"
 
-rm -rf /tmp/catalogue.zip
-VALIDATE $? "Removed catalogue.zip"
+rm -rf /tmp/user.zip
+VALIDATE $? "Removed user.zip"
 
 mkdir -p /app &>> $LOGS_FILE
 VALIDATE $? "Creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
+curl -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
 cd /app
-unzip /tmp/catalogue.zip &>> $LOGS_FILE
-VALIDATE $? "Downloaded and Extracted Catalogue Code"
+unzip /tmp/user.zip &>> $LOGS_FILE
+VALIDATE $? "Downloaded and Extracted user Code"
 
 npm install &>> $LOGS_FILE
 VALIDATE $? "Installing dependencies"
 
-cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service
 VALIDATE $? "Systemctl Service Created"
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum/repos.d/mongo.repo
@@ -67,7 +67,7 @@ VALIDATE $? "Added Mongo Repo"
 dnf install mongodb-mongosh -y &>> $LOGS_FILE
 VALIDATE $? "Installed MongoDB Client"
 
-INDEX=$(mongosh --host mongodb.swadevops.online --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+INDEX=$(mongosh --host mongodb.swadevops.online --eval 'db.getMongo().getDBNames().indexOf("user")')
 
 if [ $INDEX -lt 0 ]; then
     mongosh --host mongodb.swadevops.online </app/db/master-data.js
@@ -76,6 +76,6 @@ else
     echo -e "Products already loaded .. $Y SKIPPING $N"
 fi
 
-systemctl enable catalogue &>> $LOGS_FILE
-systemctl start catalogue &>> $LOGS_FILE
-VALIDATE $? "Restarting catalogue"
+systemctl enable user &>> $LOGS_FILE
+systemctl start user &>> $LOGS_FILE
+VALIDATE $? "Restarting User"

@@ -57,19 +57,6 @@ mvn clean package &>> $LOGS_FILE
 mv target/payment-1.0.jar payment.jar
 VALIDATE $? "Installing dependencies"
 
-dnf install mysql -y &>> $LOGS_FILE
-VALIDATE $? "Installing MYSQL Client"
-
-mysql -h $MYSQL_HOST -u --root -pRoboShop@1 -e "use citites" &>>$LOGS_FILE
-if [ $? -ne 0 ]; then
-    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql
-    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/app-user.sql
-    mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql
-    VALIDATE $? "Data Loaded"
-else
-    echo "Data alreay loaded $Y Skipping $N"
-fi
-
 systemctl enable payment
 systemctl restart payment
 VALIDATE $? "Enabling and Restarting payment"
